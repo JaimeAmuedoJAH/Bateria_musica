@@ -75,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
         cargarArray();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrTitulos);
         lvCanciones.setAdapter(adapter);
-        AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
-        soundPool = new SoundPool.Builder().setMaxStreams(3).setAudioAttributes(audioAttributes).build();
+        soundPool = new SoundPool.Builder().setMaxStreams(3).build();
+        sonido = soundPool.load(this, R.raw.bombo, 1);
+        sonido = soundPool.load(this, R.raw.platillo, 1);
     }
 
     private void pausar() {
@@ -92,17 +93,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void soundBombo() {
-        sonido = soundPool.load(this, R.raw.bombo, 1);
-        soundPool.setOnLoadCompleteListener((soundPool, i, i1) -> {
             soundPool.play(sonido, 1, 1, 0, 0, 1);
-        });
     }
 
     private void soundPlatillo() {
-        sonido = soundPool.load(this, R.raw.platillo, 1);
-        soundPool.setOnLoadCompleteListener((soundPool, i, i1) -> {
             soundPool.play(sonido, 1, 1, 0, 0, 1);
-        });
     }
 
     public static void startTimer(SeekBar sbBarra) {
